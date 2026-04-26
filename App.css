@@ -84,8 +84,8 @@
 
 .modal-content {
   background-color: white;
-  width: 600px; /* Wider aspect */
-  height: 80vh; /* Reduced height */
+  width: 600px;
+  height: 80vh;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -102,9 +102,10 @@
   padding: 10px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  cursor:default;
+  cursor: default;
   height: 8px;
   align-items: center;
+  position: relative;
 }
 
 .modal-title {
@@ -113,9 +114,6 @@
   font-weight: 500;
   color: rgb(210, 209, 209);
   height: 20px;
-}
-.modal-header {
-  position: relative;
 }
 
 .modal-close {
@@ -126,37 +124,34 @@
   border: none;
   width: 50px;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px 8px 8px;
   color: white;
   height: 100%;
   transition: background-color 0.3s ease;
-  padding-top: 4px;
-  border-radius: 0px 8px 0px 0px; 
+  border-radius: 0 8px 0 0;
 }
 
 .modal-close:hover {
-  background-color: red; /* Red background on hover */
+  background-color: red;
 }
 
 
 /* Modal Body */
 .modal-body {
   padding: 1px;
-  overflow-y: auto; /* Ensure scrolling if content overflows */
+  overflow-y: auto;
 }
 .modal-link{
   background-color: rgb(202, 202, 202);
   height: 45px;
   text-align: left;
-  
   padding-top: 2px;
 }
 .modal-title-url{
   background-color: rgb(243, 240, 240);
-  border: 0px solid;
+  border: none;
   height: 90%;
   width: 99.1%;
-  
 }
 textarea:focus, input:focus{
   outline: none;
@@ -193,7 +188,6 @@ textarea:focus, input:focus{
 
 .session-details {
   margin-top: 20px;
-
   padding: 10px;
 }
 
@@ -202,7 +196,6 @@ textarea:focus, input:focus{
 }
 .sessions-list{
   display: flex;
- 
 }
 .session-left{
   width: 24%;
@@ -230,15 +223,17 @@ textarea:focus, input:focus{
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f9f9f9; /* Optional: adds a light background */
+  background-color: #f9f9f9;
 }
 .session-tracking{
   display: flex;
   width: 80%;
   align-items: center;
+  justify-self: left;
 }
 .session-system{
   width: 40%;
+  margin-left: 10vw;
 }
 .session-geo{
   width: 59%;
@@ -256,7 +251,7 @@ textarea:focus, input:focus{
   background-color: #0078d4;
   color: white;
   border: 0;
-  cursor:pointer;
+  cursor: pointer;
   margin-left: 5px;
   margin-bottom: 5px;
 }
@@ -278,14 +273,6 @@ textarea:focus, input:focus{
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.session-tracking{
-  display: flex;
-  justify-self: left;
-
-}
-.session-system{
-  margin-left: 10vw;
 }
 #action-button.active {
   background-color: #007bff;
